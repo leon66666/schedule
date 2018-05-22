@@ -8,11 +8,11 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <import resource="applicationContext-persistence.xml"/>
-
     <context:component-scan base-package="com.hoomsun.schedule.service"/>
     <context:component-scan base-package="com.hoomsun.schedule.dao"/>
+    <context:component-scan base-package="wangzhongqiu.spring.mybatis.datasource"/>
 
+    <import resource="applicationContext-persistence.xml"/>
     <!-- 指定使用cglib -->
     <tx:annotation-driven proxy-target-class="true"/>
 

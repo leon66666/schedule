@@ -10,9 +10,9 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <bean id="dataSource" class="com.hoomsun.dao.DataSourceRouter">
+    <bean id="dataSource" class="wangzhongqiu.spring.mybatis.datasource.DataSourceRouter">
         <property name="targetDataSources">
-            <map key-type="com.hoomsun.util.AvailableDataSources">
+            <map key-type="wangzhongqiu.spring.mybatis.datasource.AvailableDataSources">
                 <entry key="READ" value-ref="dataSourceSlave"/>
                 <entry key="WRITE" value-ref="dataSourceMaster"/>
             </map>

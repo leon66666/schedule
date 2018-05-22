@@ -15,9 +15,15 @@
     <dependencies>
         <dependency>
             <groupId>wangzhongqiu</groupId>
+            <artifactId>spring-mybatis</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>wangzhongqiu</groupId>
             <artifactId>javautils</artifactId>
             <version>${wangzhongqiu_javautils_version}</version>
         </dependency>
+        <!--hibernate-->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-annotations</artifactId>
