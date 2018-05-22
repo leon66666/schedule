@@ -4,16 +4,14 @@
  */
 package com.hoomsun.schedule.web.actions;
 
-import com.hoomsun.model.Staff;
 import com.hoomsun.model.TaskTimer;
 import com.hoomsun.schedule.service.TaskTimerService;
-import com.hoomsun.service.UserService;
-import com.hoomsun.util.StringUtil;
 import javacommon.base.BaseStruts2Action;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import zhongqiu.javautils.StringUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,8 +28,6 @@ public class TaskMgmtAction extends BaseStruts2Action {
     
     @Autowired
     private TaskTimerService taskTimerService;
-    @Autowired
-    private UserService userService;
     
     // 用户名
     private String userName;
@@ -55,17 +51,7 @@ public class TaskMgmtAction extends BaseStruts2Action {
     public String execute() {
         try {
             // 检查用户是否有登录权限
-            // 用户名, 密码 
-            try {
-                Staff user = userService.loginForInternal(userName, password);
-            }
-            catch(Exception ex) {
-                logger.error(ex, ex);
-                jsonResult.put("status", 0);
-                jsonResult.put("message", "用户名或密码不正确");
-                return "jsonResult";
-            }
-            
+            // 用户名, 密码
             if (StringUtil.isEmpty(taskName) || StringUtil.isEmpty(operation)) {
                 jsonResult.put("status", 0);
                 jsonResult.put("message", "任务名称或操作类型不正确");

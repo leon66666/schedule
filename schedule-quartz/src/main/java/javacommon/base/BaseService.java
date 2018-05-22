@@ -1,10 +1,10 @@
 package javacommon.base;
 
-import com.hoomsun.util.UtilTools;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.transaction.annotation.Transactional;
+import zhongqiu.javautils.UtilTools;
 
 import java.io.Serializable;
 import java.util.List;

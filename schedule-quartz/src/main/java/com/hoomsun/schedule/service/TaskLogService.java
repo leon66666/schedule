@@ -1,7 +1,5 @@
 package com.hoomsun.schedule.service;
 
-
-import com.hoomsun.exception.ServiceException;
 import com.hoomsun.model.TaskLog;
 import com.hoomsun.page.Page;
 import com.hoomsun.schedule.dao.TaskLogDAO;
@@ -13,7 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional(rollbackFor = ServiceException.class)
+@Transactional
 public class TaskLogService extends BaseService<TaskLog, Integer> {
 
 	@Autowired

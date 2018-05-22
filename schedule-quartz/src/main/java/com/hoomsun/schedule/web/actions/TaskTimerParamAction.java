@@ -5,16 +5,15 @@
 package com.hoomsun.schedule.web.actions;
 
 import com.hoomsun.message.Flash;
-import com.hoomsun.model.Staff;
 import com.hoomsun.model.TaskTimer;
 import com.hoomsun.model.TaskTimerParam;
 import com.hoomsun.page.Page;
 import com.hoomsun.schedule.service.TaskTimerParamService;
 import com.hoomsun.schedule.service.TaskTimerService;
-import com.hoomsun.util.UtilTools;
 import com.hoomsun.vo.TaskTimerParamQuery;
 import javacommon.base.BaseStruts2Action;
 import org.springframework.beans.factory.annotation.Autowired;
+import zhongqiu.javautils.UtilTools;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -43,7 +42,6 @@ public class TaskTimerParamAction extends BaseStruts2Action {
     public String save() {
         HttpServletRequest request = getRequest();
         // 获取登陆用户
-        Staff user = (Staff) request.getSession().getAttribute("logingUser");
         String paramKey = request.getParameter("taskTimerParam.paramKey");
         String paramValue = request.getParameter("taskTimerParam.paramValue");
         String taskId = request.getParameter("taskId");
@@ -62,14 +60,8 @@ public class TaskTimerParamAction extends BaseStruts2Action {
                 if (!isNullOrEmptyString(taskIdStr)) {
                     taskTimerParam.setTaskId(Integer.valueOf(taskIdStr));
                 }
-                if (isNullOrEmptyString(user))
-                    taskTimerParam.setCreater("");
-                else {
-                    // 创建这
-                    taskTimerParam.setCreater(isNullOrEmptyString(user.getUsername()) ? user.getMail() : user.getUsername());
-                    // 创建时间
-                    taskTimerParam.setCreateTime(UtilTools.String2Date(UtilTools.Date2String(new Date())));
-                }
+                // 创建时间
+                taskTimerParam.setCreateTime(UtilTools.String2Date(UtilTools.Date2String(new Date())));
                 taskTimerParamService.save(taskTimerParam);
                 this.setTaskId(taskTimerParam.getTaskId());
             }

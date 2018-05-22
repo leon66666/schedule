@@ -1,9 +1,9 @@
 package com.hoomsun.schedule.dao;
 
-import com.hoomsun.common.Constants;
 import com.hoomsun.model.TaskTimerParam;
 import com.hoomsun.page.Page;
-import com.hoomsun.util.UtilTools;
+import com.hoomsun.util.Constants;
+import zhongqiu.javautils.UtilTools;
 import com.hoomsun.vo.TaskTimerParamQuery;
 import javacommon.base.BaseHibernateDao;
 import org.hibernate.SessionFactory;
@@ -13,16 +13,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Map;
 
-/**
- * A data access object (DAO) providing persistence and search support for
- * TaskTimerParam entities. Transaction control of the save(), update() and
- * delete() operations can directly support Spring container-managed
- * transactions or they can be augmented to handle user-managed Spring
- * transactions. Each of these methods provides additional information for how
- * to configure it for the desired type of transaction control.
- * 
- * 
- */
 @Repository
 public class TaskTimerParamDAO extends BaseHibernateDao<TaskTimerParam, Integer> {
     private TaskTimerParam taskTimerParam; 
@@ -83,7 +73,7 @@ public class TaskTimerParamDAO extends BaseHibernateDao<TaskTimerParam, Integer>
     @SuppressWarnings("unchecked")
     public List<Map<String,String>> findInitParamByTaskId(Integer taskId){
         String sql="select new map(t.paramKey as key,t.paramValue as value) from TaskTimerParam t where t.taskId=? and( t.paramKey=? or t.paramKey=? )";
-      Object[] objParam={taskId,Constants.AUTO_TASK_DELAY_DATE_KEY,Constants.AUTO_TASK_INTERVAL_DATE_KEY};
+      Object[] objParam={taskId,Constants.AUTO_TASK_DELAY_DATE_KEY, Constants.AUTO_TASK_INTERVAL_DATE_KEY};
         return getHibernateTemplate().find(sql,objParam);
 }
     

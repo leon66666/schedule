@@ -1,11 +1,9 @@
 package com.hoomsun.schedule.service.job;
 
-import com.hoomsun.common.Constants;
 import com.hoomsun.common.ReflectUtils;
 import com.hoomsun.schedule.dao.TaskTimerParamDAO;
 import com.hoomsun.schedule.service.CoreServicesFactory;
-import com.hoomsun.service.cache.impl.RedisServiceImpl;
-import com.hoomsun.util.UtilTools;
+import zhongqiu.javautils.UtilTools;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.quartz.Job;
@@ -22,7 +20,7 @@ public abstract class BaseJob implements Job {
     /**
      * 这些日志执行太频繁,减少输出次数
      */
-    private static Map<String, Integer> logEscapeList = new HashMap(){{
+    private static Map<String, Integer> logEscapeList = new HashMap() {{
         put("updateDelayJob", 0);
         put("refreshDelayPointJob", 0);
         put("updateFinancePlanByFullJob", 0);
@@ -34,20 +32,23 @@ public abstract class BaseJob implements Job {
 
     protected int isTiming;
     // 延迟时间
-    private Long delayDate = Constants.AUTO_TASK_DEFAULT_DELAY_DATE_VALUE;
+    private Long delayDate = 0L;
     // 间隔时间
-    private Long intervalDate = Constants.AUTO_TASK_DEFAULT_INTERVAL_DATE_VALUE;
+    private Long intervalDate = 2 * 1000L;
     // 定时时间
     private List<TimingDate> timingDates = new ArrayList<TimingDate>();
+
     // 定时时间类
     public class TimingDate {
         public TimingDate(Integer hour, Integer min) {
             this.hour = hour;
             this.min = min;
         }
+
         public Integer hour;
         public Integer min;
     }
+
     // 运行次数
     protected Integer count = 0;
     // 任务执行结果
@@ -56,10 +57,10 @@ public abstract class BaseJob implements Job {
     protected Map<String, String> mapPram;
     // 任务执行上下文
     protected JobExecutionContext context;
-    
+
     /**
      * 查看列表是否存在该参数，存在的话返回参数值
-     * 
+     *
      * @param paramName 参数对应key
      * @return 参数值
      */
@@ -69,7 +70,7 @@ public abstract class BaseJob implements Job {
         }
         return !UtilTools.isNullOrEmpty(getMapPram().get(paramName)) ? getMapPram().get(paramName) : null;
     }
-    
+
     /**
      * 更新运行次数
      */
@@ -93,30 +94,16 @@ public abstract class BaseJob implements Job {
     public void execute(JobExecutionContext context) throws JobExecutionException {
         setJobExecutionContext(context);
         String className = getClassName();
-        RedisServiceImpl redisServiceImpl = (RedisServiceImpl)CoreServicesFactory.getBean("redisServiceImpl");
-        BaseJob job = (BaseJob)CoreServicesFactory.getBean(className);
+        BaseJob job = (BaseJob) CoreServicesFactory.getBean(className);
         try {
-            // 如果此任务已经在运行中则直接返回，并且不刷新运行次数
-            String isStop = redisServiceImpl.getStr(Constants.KEYPREFIX_STOP_FLAG_IN_REDIS_, className);
-            if (!UtilTools.isNullOrEmpty(isStop) && Boolean.FALSE.toString().equalsIgnoreCase(isStop)) {
-                return;
-            }
-            
-            redisServiceImpl.setStr(Constants.KEYPREFIX_STOP_FLAG_IN_REDIS_, className, "false", 60 * 60 * 24 * 7);
             if (!logEscapeList.keySet().contains(className)) { // 防止频繁执行的任务刷屏
                 log.info("执行任务：" + className);
             }
             job.setJobExecutionContext(context);
             job.run();
             job.updateRunCount();
-            redisServiceImpl.del(Constants.KEYPREFIX_STOP_FLAG_IN_REDIS_, className);
         } catch (Exception e) {
             log.error("任务执行出错", e);
-            try {
-                redisServiceImpl.del(Constants.KEYPREFIX_STOP_FLAG_IN_REDIS_, className);
-            } catch (Exception ex) {
-                log.error("无法连接Redis", ex);
-            }
         }
     }
 
@@ -125,16 +112,16 @@ public abstract class BaseJob implements Job {
      * 具体的任务类需要在此方法中实现业务逻辑
      */
     public abstract void run();
-    
+
     public String getClassName() {
         return ReflectUtils.getClassNameInIoc(this.getClass().getName());
     }
-    
+
     /**
      * 获取参数列表
      */
     public Map<String, String> getMapPram() {
-        TaskTimerParamDAO taskTimerParamDAO = (TaskTimerParamDAO)CoreServicesFactory.getBean("taskTimerParamDAO");
+        TaskTimerParamDAO taskTimerParamDAO = (TaskTimerParamDAO) CoreServicesFactory.getBean("taskTimerParamDAO");
         // 获取参数列表
         String className = getClassName();
         mapPram = new HashMap<String, String>();
@@ -145,28 +132,28 @@ public abstract class BaseJob implements Job {
         }
         return mapPram;
     }
-    
+
     /**
      * 为参数列表赋值
      */
     public void setMapPram(Map<String, String> mapPram) {
         this.mapPram = mapPram;
     }
-    
+
     /**
      * 设置定时任务执行时间
      */
     public void setTimingDates(List<TimingDate> timingDates) {
         this.timingDates = timingDates;
     }
-    
+
     /**
      * 获取定时任务执行时间
      */
     public List<TimingDate> getTimingDates() {
         return this.timingDates;
     }
-    
+
     /**
      * 获取定时任务执行时间
      */
@@ -197,14 +184,14 @@ public abstract class BaseJob implements Job {
         }
         return timingDates;
     }
-    
+
     /**
      * 设置任务延迟执行时间
      */
     public void setDelayDate(Long delayDate) {
         this.delayDate = delayDate;
     }
-    
+
     /**
      * 获取任务延迟执行时间
      */
@@ -222,21 +209,21 @@ public abstract class BaseJob implements Job {
             return getDelayDate();
         return Long.valueOf(delaydateStr);
     }
-    
+
     /**
      * 设置任务间隔执行时间
      */
     public void setIntervalDate(Long intervalDate) {
         this.intervalDate = intervalDate;
     }
-    
+
     /**
      * 获取任务间隔执行时间
      */
     public Long getIntervalDate() {
         return this.intervalDate;
     }
-    
+
     /**
      * 获取任务间隔执行时间
      */
@@ -258,18 +245,18 @@ public abstract class BaseJob implements Job {
         mr.put("className", getClassName());
         mr.put(getClassName(), 0);
     }
-    
+
     /**
      * 获取任务运行反馈map
      */
     public Map<String, Object> getMapResult() {
         return this.mapResult;
     }
-    
+
     public void setJobExecutionContext(JobExecutionContext context) {
         this.context = context;
     }
-    
+
     public JobExecutionContext getJobExecutionContext() {
         return this.context;
     }

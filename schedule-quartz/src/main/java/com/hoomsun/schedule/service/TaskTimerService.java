@@ -1,8 +1,6 @@
 package com.hoomsun.schedule.service;
 
-import com.hoomsun.common.Constants;
 import com.hoomsun.common.TaskStatus;
-import com.hoomsun.exception.ServiceException;
 import com.hoomsun.message.Flash;
 import com.hoomsun.model.TaskTimer;
 import com.hoomsun.model.TaskTimerParam;
@@ -10,9 +8,7 @@ import com.hoomsun.page.Page;
 import com.hoomsun.schedule.dao.TaskTimerDAO;
 import com.hoomsun.schedule.dao.TaskTimerParamDAO;
 import com.hoomsun.schedule.service.job.BaseJob;
-import com.hoomsun.service.cache.impl.RedisServiceImpl;
-import com.hoomsun.util.ResourceBundleUtil;
-import com.hoomsun.util.UtilTools;
+import com.hoomsun.util.Constants;
 import com.hoomsun.vo.TaskTimerQuery;
 import javacommon.base.BaseService;
 import javacommon.base.EntityDao;
@@ -23,6 +19,7 @@ import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import zhongqiu.javautils.UtilTools;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -35,7 +32,7 @@ import static org.quartz.SimpleScheduleBuilder.simpleSchedule;
 import static org.quartz.TriggerBuilder.newTrigger;
 
 @Service
-@Transactional(rollbackFor = ServiceException.class)
+@Transactional
 public class TaskTimerService extends BaseService<TaskTimer, Integer> {
 
 	@Autowired
@@ -44,8 +41,6 @@ public class TaskTimerService extends BaseService<TaskTimer, Integer> {
 	private TaskTimerParamDAO timerParamDao;
 	@Autowired
     private TaskLogService taskLogService;
-	@Autowired
-    private RedisServiceImpl redisServiceImpl;
     @Autowired
 	private ScheduleInitService scheduleInitService;
 	private Scheduler scheduler;

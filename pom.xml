@@ -38,6 +38,8 @@
         <joda-time.version>2.9.9</joda-time.version>
         <guava.version>21.0</guava.version>
         <poi.version>3.6</poi.version>
+        <aspectjrt_version>1.8.9</aspectjrt_version>
+        <aspectjweaver_version>1.7.4</aspectjweaver_version>
         <!-- Myself libs -->
         <wangzhongqiu_javautils_version>1.0</wangzhongqiu_javautils_version>
     </properties>
@@ -82,6 +84,11 @@
                 <groupId>org.apache.curator</groupId>
                 <artifactId>curator-test</artifactId>
                 <version>${curator_test_version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate-annotations</artifactId>
+                <version>${hibernate.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

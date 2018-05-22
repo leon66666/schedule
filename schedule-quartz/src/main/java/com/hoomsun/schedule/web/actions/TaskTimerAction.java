@@ -1,8 +1,6 @@
 package com.hoomsun.schedule.web.actions;
 
-import com.hoomsun.common.TaskStatus;
 import com.hoomsun.message.Flash;
-import com.hoomsun.model.Staff;
 import com.hoomsun.model.TaskTimer;
 import com.hoomsun.page.Page;
 import com.hoomsun.page.util.HttpTools;
@@ -11,18 +9,16 @@ import com.hoomsun.schedule.service.TaskLogService;
 import com.hoomsun.schedule.service.TaskTimerParamService;
 import com.hoomsun.schedule.service.TaskTimerService;
 import com.hoomsun.schedule.service.job.BaseJob;
-import com.hoomsun.service.cache.impl.RedisServiceImpl;
-import com.hoomsun.util.UtilTools;
 import com.hoomsun.vo.TaskTimerQuery;
 import javacommon.base.BaseStruts2Action;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import zhongqiu.javautils.UtilTools;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -41,8 +37,6 @@ public class TaskTimerAction extends BaseStruts2Action {
     private TaskLogService taskLogService;
     @Autowired
     private TaskTimerParamService taskTimerParamService;
-    @Autowired
-    private RedisServiceImpl redisServiceImpl;
     private TaskTimer taskTimer;
     private String items;
 
@@ -51,18 +45,7 @@ public class TaskTimerAction extends BaseStruts2Action {
      */
     public String save() {
         // 获取登陆用户
-        Staff user = (Staff) getRequest().getSession().getAttribute("logingUser");
-        if (isNullOrEmptyString(user))
-            taskTimer.setCreater("");
-        else {
-            /** 创建者 **/
-            taskTimer.setCreater(isNullOrEmptyString(user.getUsername()) ? user.getMail() : user.getUsername());
-            /** 创建时间 **/
-            taskTimer.setCreateTime(UtilTools.String2Date(UtilTools.Date2String(new Date())));
-            taskTimer.setTaskStatus(TaskStatus.STOPPING);
-        }
         try {
-
             taskTimerService.save(taskTimer);
             Flash.current().success(CREATED_SUCCESS);
         } catch (Exception e) {
@@ -164,8 +147,7 @@ public class TaskTimerAction extends BaseStruts2Action {
     public String startTask() {
         String taskId = getRequest().getParameter("taskId");
         if (!isNullOrEmptyString(taskId)) {
-            Staff user = (Staff)getRequest().getSession().getAttribute("logingUser");
-            String username = (!UtilTools.isNullOrEmpty(user) ? user.getUsername() : "");
+            String username = "admin";
             String ip = HttpTools.getIpAddr(getRequest());
             taskTimerService.startTaskById(Integer.valueOf(taskId), username, ip);
         }
@@ -178,10 +160,9 @@ public class TaskTimerAction extends BaseStruts2Action {
     public String stopTask() {
         String taskId = getRequest().getParameter("taskId");
         if (!isNullOrEmptyString(taskId)) {
-            Staff user = (Staff)getRequest().getSession().getAttribute("logingUser");
-            String username = (!UtilTools.isNullOrEmpty(user) ? user.getUsername() : "");
+            String username = "admin";
             String ip = HttpTools.getIpAddr(getRequest());
-            taskTimerService.stopTaskById(Integer.valueOf(taskId), username, ip);
+            taskTimerService.startTaskById(Integer.valueOf(taskId), username, ip);
         }
         return list();
     }

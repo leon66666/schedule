@@ -1,13 +1,12 @@
 package com.hoomsun.schedule.service;
 
 import com.hoomsun.common.TaskStatus;
-import com.hoomsun.exception.ServiceException;
 import com.hoomsun.model.TaskTimer;
 import com.hoomsun.model.TaskTimerParam;
 import com.hoomsun.page.Page;
 import com.hoomsun.schedule.dao.TaskTimerDAO;
 import com.hoomsun.schedule.dao.TaskTimerParamDAO;
-import com.hoomsun.util.UtilTools;
+import zhongqiu.javautils.UtilTools;
 import com.hoomsun.vo.TaskTimerParamQuery;
 import javacommon.base.BaseService;
 import javacommon.base.EntityDao;
@@ -20,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-@Transactional(rollbackFor = ServiceException.class)
+@Transactional
 public class TaskTimerParamService extends BaseService<TaskTimerParam, Integer> {
 
     @Autowired

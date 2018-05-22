@@ -4,12 +4,12 @@ import com.hoomsun.page.Page;
 import com.hoomsun.page.PageRequest;
 import com.hoomsun.page.util.ConvertRegisterHelper;
 import com.hoomsun.page.util.PageRequestFactory;
-import com.hoomsun.util.UtilTools;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.Assert;
+import zhongqiu.javautils.UtilTools;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
