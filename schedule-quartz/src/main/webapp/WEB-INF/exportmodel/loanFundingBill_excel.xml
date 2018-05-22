@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <element name="loanFundingBillVo" class="com.hoomsun.vo.LoanFundingBillVo">
+        <field name="serialNum" isnull="false" excelfield="序号"/>
+        <field name="type" isnull="false" excelfield="业务类型"/>
+        <field name="loanId" isnull="false" excelfield="红小宝散标ID"/>
+        <field name="serialNoImport" isnull="false" excelfield="新项目借款流水号"/>
+        <field name="borrowerId" isnull="true" excelfield="红小宝用户ID"/>
+        <field name="refId" isnull="true" excelfield="新项目用户ID"/>
+        <field name="openTime" isnull="true" excelfield="筹款发起时间"/>
+        <field name="amount" isnull="true" excelfield="预计筹款金额"/>
+        <field name="passTime" isnull="true" excelfield="筹款成功时间"/>
+        <field name="amount" isnull="true" excelfield="实际筹款总金额" />
+        <field name="interest" isnull="true" excelfield="年利率"/>
+        <field name="endTime" isnull="true" excelfield="还款期限"/>
+        <field name="loanType" isnull="true" excelfield="还款方式"/>
+        <field name="months" isnull="true" excelfield="分期数"/>
+    </element>
+</root>

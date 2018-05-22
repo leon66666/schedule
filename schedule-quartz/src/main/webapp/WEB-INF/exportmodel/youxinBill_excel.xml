@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <element name="youxinPassTimeVo" class="com.hoomsun.vo.YouxinPassTimeVo">
+        <field name="refId" isnull="true" excelfield="至信交易号"/>
+        <field name="name" isnull="true" excelfield="姓名"/>
+        <field name="idNo" isnull="true" excelfield="身份证"/>
+        <field name="loanId" isnull="false" excelfield="红小宝标ID"/>
+        <field name="loanStatus" isnull="true" excelfield="标状态" />
+        <field name="importTime" isnull="true" excelfield="导入时间"/>
+        <field name="passTime" isnull="true" excelfield="放标时间"/>
+    </element>
+</root>

@@ -1,0 +1,93 @@
+@CHARSET "UTF-8";
+ @import 'reset.css';
+body { font: 12px/ 162% Tahoma, Arial, Helvetica, 宋体; ; margin: 0; color:#444; }
+#page { margin: 0 auto; width: 960px; }
+#content { height: auto; }
+.l { float:left; }
+body { background: url("../images/header_bg.png") repeat-x; height: 123px; }
+/* header */
+#header { margin-bottom: 5px; }
+#header .logo { }
+#header .logo_left { float: left; background: url("../images/logo.png") no-repeat; width: 137px; height: 60px; }
+#header .logo_right { float: right; height: 60px; margin-top:15px; }
+#header .logo_right_link { height: 30px; }
+#header .logo_right_phone { font-size:14px; font-weight:bold; text-align:right; padding-right:5px; color:#0f44bf; }
+#header .logo_right ul { float: right; }
+#header .logo ul li { padding: 0 15px; float: left; background:url("../images/verline.png") right center no-repeat; }
+/********************login********************************/
+.loginbox { width:800px; height:425px; margin:20px auto; border:1px solid #e1e1e1; }
+.loginbox .loginLeft { width:580px; _overflow:hidden; float:left; text-align:center; background:#f5fbff; height:423px; }
+.loginbox .logininput { width:350px; margin:0 auto; text-align:left; padding-left:50px; height:50px; }
+.loginbox .logininput label.error { padding-left:67px; color:red; margin:0 0 8px 0; display:block }
+.loginbox .logininput label.error2 { padding-left:60px; color:red; margin:0 0 5px 0; display:block; }
+.loginbox .title { font-weight:bold; margin-bottom:30px; text-align:center; color:#6178aa; font-size:14px; }
+.loginbox .title p { font-size:22px; margin-top:40px; color:#a9ccf4 }
+.loginbox .title2 { height:50px; line-height:50px; font-weight:bold; text-align:center; color:#6178aa; font-size:14px; }
+.loginbox .loginbt { width:88px; height:31px; margin:0 auto; border:0 none; text-indent:-9999px; background:url('../images/loginbt.png') no-repeat; cursor:pointer; margin:20px 0; }
+.loginbox .regbt { width:88px; height:31px; margin:0 auto 15px; border:0 none; text-indent:-9999px; background:url('../images/regbt.png') no-repeat; cursor:pointer; }
+#page { min-height:auto; position:relative; }
+.loginRight { float:left; width:220px; height:425px; }
+#denglu { background:url('../images/denglubg2.jpg') no-repeat left center; }
+#zhuche { background:url('../images/zhuchebg.jpg') no-repeat left center; }
+#login_email label.error, #login_psw label.error { padding-left:76px; }
+.reginput input{vertical-align:middle}
+.loginbox .input180 { width:180px; height:24px;line-height:24px; color: #868686; font-size: 16px; padding: 2px; vertical-align:middle;}
+.footer { text-align:center; font-size:12px; margin-top:30px; }
+.error_tip { background: url("../images/error_tip.png") no-repeat scroll 3px 50% transparent; border: 1px solid orange; width: 280px; font-size:12px; font-weight:normal; margin:0 auto; color:red; padding: 5px 0; }
+.red { color:red; }
+.rank { background: url("../images/rank.gif") no-repeat scroll 0 0 transparent; border: medium none; cursor: default; height: 22px; margin: 0 0 0 5px; vertical-align: middle; width: 145px; }
+.r0 { background-position:0 2; }
+.r1 { background-position:0 -19px; }
+.r2 { background-position:0 -40px; }
+.r3 { background-position:0 -61px; }
+.r4 { background-position:0 -82px; }
+.r5 { background-position:0 -103px; }
+.r6 { background-position:0 -124px; }
+.r7 { background-position:0 -145px; }
+.box404 { width:896px; height:369px; margin: 20px auto; background:url('../images/404bg.jpg') no-repeat left center; position:relative; }
+.box404 .errorText { color:#7fa25d; font-size:26px; font-weight:bold; position:absolute; top:100px; left:1px; font-family:'Microsoft Yahei', '黑体' }
+.box404 a { display:block; height:60px; width:250px; position:absolute; top:235px; left:120px; }
+#autoEmail li { cursor:pointer; line-height:19px; float:none;text-align:left; width: 800px;}
+#autoEmail li.cur { background:#d7ecfb }
+.pass_reg_tips { position:absolute; z-index:99999; }
+.pass_reg_tips .pass_reg_tip_header { background: url("../images/reg_tip_header_t.gif") no-repeat scroll 0 17px transparent; float: left; height: 47px; position: relative; width: 6px; z-index: 1000; }
+.pass_reg_tips .pass_reg_tip_body_container { background: url("../images/reg_tip_bg_bottom.gif") repeat-x scroll center bottom transparent; float: left; margin-left: -1px; padding-bottom: 2px; position: relative; }
+.pass_reg_tips .pass_reg_tip_body { background: none repeat scroll 0 0 #FFFFFF; border: 1px solid #BBBBBB; float: left; }
+.pass_reg_tips .pass_reg_tip_body .pass_rep_tip_content { color: #666666; display: block; padding: 5px 9px 4px; width:230px; line-height:20px; }
+/**绑定其它账号**/
+.txbd { border:1px solid #afcfed; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; overflow:hidden; }
+.txbd .txbd_head { height:25px; background:#8ed3f5; }
+.txbd .txbd_body { text-align:center; margin-top:80px; }
+.txbd .txbd_body_input { height:50px; }
+.txbd .txbd_body_input input { width:250px; border:1px solid #afcfed; height:30px;line-height:30px; font-size:14px; }
+.txbd .txbd_body_input select { width:125px; border:1px solid #afcfed; height:30px; font-size:14px;}
+.txbd_input_bt { width:117px; height:35px; background:url("../images/bd_blue.gif") no-repeat; border:0 none; text-align:center; color:#fff; font-size:14px; font-weight:bold; cursor:pointer; text-shadow:1px 1px 1px #0078f6; }
+.txbd .txbd_foot { height:73px; background:url('../images/bangding01.gif') no-repeat; }
+/**更新login页面**/
+#regsteps { position:relative; }
+.topline { height:4px; width:100%; background:#dadada; position:absolute; top:85px;font-size:0px; }
+#reg_step1 { background:url("../images/regbg_step_01.jpg") no-repeat; margin:0 auto; width:733px; height:455px; position:relative; z-index:2; padding-left:50px; }
+#reg_step2 { background:url("../images/regbg_step_02.jpg") no-repeat; margin:0 auto; width:613px; height:455px; position:relative; z-index:2; padding-left:170px; }
+.regcon { padding-top:137px; }
+.regcon h3 { font-size:22px; line-height:70px; color:#79a6ed }
+.reginput { height:55px; font-size:12px; }
+.reginput .input180 { width: 180px; height: 24px;line-height:24px; color: #868686; padding: 2px; font-family: 微软雅黑; }
+.regloginbt { width: 163px; height: 42px;line-height:42px;text-align:center; margin: 0 auto 15px; border: 0 none; font-size:22px; font-weight:bold; color:#fff; background: url('../images/regloginbt.jpg') no-repeat; cursor: pointer; }
+.regpic{ margin-bottom:20px;}
+.column{ width:320px; height:100px; float:left;}
+.column h3{ text-align:center; color:#61b5e7; margin-top:32px;}
+.column p{ text-align:center; color:#e6b788;}
+.regcon label.error, .reginput label.error{ color:red;margin-left:5px}
+.toBeFinancier{ border:1px solid #d0e8f5; width:780px; margin:0 auto; background:url("../images/login_step3bg.jpg") no-repeat left bottom  #eff9fe; height:665px;}
+#toBeFinancierBox{ margin-left:180px;}
+#reveiveActiveCode { background:url("../images/smail.jpg") no-repeat; border:0 none; width:114px; height:30px; margin-left:5px; cursor:pointer }
+/**alert**/
+#popup_container { font-family: Arial, sans-serif; font-size: 12px; min-width: 300px; max-width: 600px; background: #FFF; border: solid 5px #999; color: #000; -moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; }
+#popup_title { font-size: 14px; font-weight: bold; text-align: center; line-height: 1.75em; color: #666; background: #CCC url(../images/alert/title.gif) top repeat-x; border: solid 1px #FFF; border-bottom: solid 1px #999; cursor: default; padding: 0em; margin: 0em; }
+#popup_content { background: 16px 16px no-repeat url(../images/alert/info.gif); padding: 1em 1.75em; margin: 0em; }
+#popup_content.alert { background-image: url(../images/alert/info.gif); }
+#popup_content.confirm { background-image: url(../images/alert/important.gif); }
+#popup_content.prompt { background-image: url(../images/alert/help.gif); }
+#popup_message { padding-left: 48px; }
+#popup_panel { text-align: center; margin: 1em 0em 0em 1em; }
+#popup_prompt { margin: .5em 0em; }

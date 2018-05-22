@@ -1,0 +1,468 @@
+/* 
+	This is a management system background styles
+
+	Version : 1.0
+
+	Editor : feijun
+
+*/
+html{
+	overflow-x: hidden;
+	color: #a4a9ae;
+	background: #f9f9fa;
+}
+a{
+	color: #5dc9e6;
+}
+li{
+	list-style: none;
+}
+.pg-logo{
+	display: block;
+	width: 159px;
+	height: 65px;
+	background: url(../img/logo.png) no-repeat scroll center #272e34;
+}
+.pg-container a{
+	text-decoration: none;
+}
+.pg-content{
+	margin-top: 36px;
+	padding-left: 80px;
+}
+.content-box{
+	padding-right: 62px;
+}
+
+/*  header-nav  */
+.header-nav{
+	height: 65px;
+	line-height: 65px;
+	background: #35383c;
+	color: #8f99a2;
+}
+.header-nav h1{
+	padding-bottom: 1px;
+	background: #407f96;
+}
+.header-nav h2{
+	width: 30%;
+	padding-left: 80px;
+	color: #8f99a2;
+	font-size: 14px;
+}
+.header-nav-list{
+	width: 51%;
+}
+.header-nav-list li{
+	float: right;
+	margin-left: 35px; 
+}
+.header-nav-list a{
+	display: block;
+	color: #8f99a2;
+}
+.header-nav-list a:hover{
+	color: #c5d3df;
+}
+.header-nav-list a:hover .icon-home{
+	background-position: -21px top;
+}
+.header-nav-list a:hover .icon-quit{
+	background-position: -21px -83px;
+}
+
+
+
+/*  side-bar  */
+.side-bar{
+	position: absolute;
+	width: 159px;
+	height: 100%;
+	background: #51c2e8;
+	font-size: 18px;
+	text-align: center;
+}
+.side-bar li{
+	display: block;
+	width: 159px;
+	position: relative;
+	background: #51c2e8;
+	border-bottom: 1px solid #77d3ef;
+}
+.side-bar li a{
+	display: block;
+	width: 159px;
+	height: 77px;
+	padding: 26px 0 20px;
+	border-bottom: 1px solid #34a9dc;
+	color: #444;
+}
+.icon-sidebar{
+	display: block;
+	width: 50px;
+	height: 50px;
+	margin:0 auto 5px;
+	background: url(../img/sidebar.png) no-repeat;
+}
+.sidebar-daily{
+	background-position: left -53px;
+}
+.sidebar-examine{
+	background-position: left -106px;
+}
+.side-bar .icon-sidesnow{
+	position: absolute;
+	right: 0;
+	top: 50%;
+	margin-top: -16px;
+}
+.side-bar li.current a,
+.side-bar li:hover a{
+	color: #fff;
+}
+.side-bar li:hover .sidebar-deploy,
+.side-bar li.current .sidebar-deploy{
+	background-position: -59px 0;
+}
+.side-bar li:hover .sidebar-daily,
+.side-bar li.current .sidebar-daily{
+	background-position: -59px -53px;
+}
+.side-bar li:hover .sidebar-examine,
+.side-bar li.current .sidebar-examine{
+	background-position: -59px -106px;
+}
+.side-bar li.current .icon-sidesnow{
+	display: block;
+}
+
+/*   search */
+.search-container{
+	margin-bottom: 33px;
+}
+.search-container h3{
+	margin-bottom: 14px;
+	color: #a4a9ae;
+	font-size: 18px;
+}
+.search-content{
+	padding: 9px;
+	background: #ebedf0;
+	border-radius: 3px;
+}
+.search-form{
+	display: inline-block;
+	padding: 16px 27px;
+	background: #51c2e8;
+	border-radius: 2px;
+}
+.search-check-from{
+	padding: 19px 27px;
+}
+.search-form .search-box{
+	position: relative;
+	width: 296px;
+	height: 43px;
+	line-height: 43px;
+	background: #e4f1f6;
+	border-radius: 2px;
+}
+.search-form .ui-input-search{
+	width: 252px;
+	height: 43px;
+	background: none;
+	border: none;
+}
+.search-time-box{
+	position: relative;
+	display: inline-block;
+	width: 422px;
+}
+.search-time-box .ui-input-time{
+	width: 127px;
+	height: 33px;
+	line-height: 33px;
+	background: #e4f1f6;
+}
+.search-button-group{
+	margin-left: 53px;
+	line-height: 71px;
+}
+.search-form .ui-button-search-hidden{
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	z-index: 9;
+	width: 37px;
+	height: 37px;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	cursor: pointer;
+}
+.search-form .ui-button-search{
+	position: absolute;
+	top: 3px;
+	right: 3px;
+	display: block;
+	width: 37px;
+	height: 37px;
+	_line-height: 37px;
+	background-color: #4fc1e9;
+	border-radius: 2px;
+	text-align: center;
+}
+.search-form .search-time-box .ui-button-search-hidden{
+	top: 0;
+	right: 44px;
+}
+.search-form .search-time-box .ui-button-search{
+	top: 0;
+	right: 44px;
+}
+.search-form .ui-icon-search{
+	background-color: #3eb0d9;
+}
+.search-form .icon-search{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -10px 0 0 -10px;
+}
+
+/*  提示信息  */
+.alert{
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 999;
+	width: 100%;
+	padding: 8px 15px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	text-align: center;
+}
+.alert-success{
+	background: #dff0d8;
+	border-color: #d6e9c6;
+	color: #3c763d;
+}
+.alert-warning{
+	background: #fcf8e3;
+	border-color: #fcf8e3;
+	color: #8a6d3b;
+}
+
+/*  page-nav  */
+.page-nav{
+	font-family: aril;
+}
+.page-nav a{
+	padding: 0 10px;
+	color: #a4a9ae;
+	font-family: Arial;
+}
+.page-nav a:hover,
+.page-nav a.current{
+	color: #5dc9e6;
+}
+.page-nav a.page-prev,
+.page-nav a.page-next{
+	display: inline-block;
+	width: 99px;
+	height: 42px;
+	line-height: 42px;
+	background: #4fc1e9;
+	border: none;
+	border-radius: 3px;
+	box-shadow: 0 -2px 0 0 #3bafda inset;
+	color: #fff;
+	font-family: '微软雅黑','YaHei',tahoma,arial,"Hiragino Sans GB",\5b8b\4f53;
+	text-align: center;
+}
+.page-nav-right{
+	text-align: right;
+}
+
+
+/*  text  */
+.color-text-black{
+	color: #000;
+}
+.color-text-red{
+	color: #ed5565;
+}
+.color-text-green{
+	color: #8cc152;
+}
+.color-text-blue{
+	color: #5dc9e6;
+}
+.text-left{
+	text-align: left;
+}
+.text-right{
+	text-align: right;
+}
+.text-center{
+	text-align: center;
+}
+
+
+/*  margin  */
+.mw12{
+	margin-left: 12px;
+	margin-right: 12px;
+}
+.mh25{
+	margin-top: 25px;
+	margin-bottom: 25px;
+}
+.mt2{
+	margin-top: 2px;
+}
+.mt5{
+	margin-top: 5px;
+}
+.mt20{
+	margin-top: 20px;
+}
+.mt24{
+	margin-top: 24px;
+}
+.ml10{
+	margin-left: 10px;
+}
+.mr5{
+	margin-right: 5px;
+}
+.mr10{
+	margin-right: 10px;
+}
+.mr20{
+	margin-right: 10px;
+}
+.mr36{
+	margin-right: 36px;
+}
+.mr38{
+	margin-right: 38px;
+}
+.mr82{
+	margin-right: 82px;
+}
+.mb20{
+	margin-bottom: 20px;
+}
+.mb40{
+	margin-bottom: 40px;
+}
+
+/*  width  */
+.w147{
+	width: 147px;
+}
+
+
+
+/*  icon  */
+.icon{
+	display: inline-block;
+	width: 19px;
+	height: 19px;
+	background: url(../img/icon.png) no-repeat;
+	vertical-align: middle;
+}
+.icon-home{
+	background-position: left top;
+}
+.icon-user{
+	width: 30px;
+	height: 32px;
+	background-position: left -239px;
+}
+.icon-quit{
+	background-position: left -83px;
+}
+.icon-add{
+	width: 13px;
+	height: 15px;
+	background-position: left -29px;
+}
+.icon-del{
+	width: 13px;
+	height: 13px;
+	background-position: left -58px;
+}
+.icon-refresh{
+	width: 16px;
+	height: 16px;
+	background-position: left -110px;
+}
+.icon-snow{
+	width: 13px;
+	height: 10px;
+	background-position: left -168px;
+}
+.icon-search{
+	width: 20px;
+	height: 20px;
+	background-position: left -136px;
+}
+.icon-list-snow{
+	width: 22px;
+	height: 13px;
+	background-position: left -277px;
+}
+.icon-uncheckbox{
+	width: 18px;
+	height: 18px;
+	background-position: left -192px;
+}
+.icon-checkbox{
+	width: 18px;
+	height: 18px;
+	background-position: left -219px;
+}
+.icon-edit{
+	width: 32px;
+	height: 34px;
+	background-position: left -303px;
+}
+.icon-edit:hover{
+	background-position: left -419px;
+}
+.icon-set{
+	width: 32px;
+	height: 34px;
+	background-position: left -343px;
+}
+.icon-set:hover{
+	background-position: left -459px;
+}
+.icon-task{
+	width: 32px;
+	height: 34px;
+	background-position: left -382px;
+}
+.icon-task:hover{
+	background-position: left -498px;
+}
+.icon-stop{
+	width: 32px;
+	height: 34px;
+	background-position: left -642px;
+}
+.icon-stop:hover{
+	background-position: left -679px;
+}
+.icon-sidesnow{
+	width: 12px;
+	height: 32px;
+	background-position: left -537px;
+}
+.icon-timearrow{
+	width: 15px;
+	height: 10px;
+	background-position: left -578px;
+}

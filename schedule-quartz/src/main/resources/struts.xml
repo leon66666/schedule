@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<!-- 开发模式 -->
+	<constant name="struts.devMode" value="false" />
+ 	<!-- 允许访问静态成员变量 -->
+ 	<constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+
+    <constant name="struts.custom.i18n.resources" value="i18n/messages"/>
+    <!-- 动态调用 即:使用action!method. -->
+    <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+    <!-- 允许使用斜线 -->
+    <constant name="struts.enable.SlashesInActionNames" value="true" />
+	<!-- 上传最大值-->
+	<constant name="struts.multipart.maxSize" value="10240000000" />
+
+	<package name="custom-default" extends="struts-default, json-default">
+  	 <result-types>
+            <result-type name="direct" class="javacommon.base.DirectResult" default="true"/>
+            <result-type name="dispatcher" class="org.apache.struts2.dispatcher.ServletDispatcherResult"/>
+        </result-types>
+  	</package>
+  	<!-- 登陆action -->
+	<package name="visitor" namespace="/visitor" extends="custom-default">
+			<action name="login" class="com.hoomsun.schedule.web.actions.LoginAction">
+
+				<result name="*" type="direct">通过Action直接返回，这一行无需修改</result>
+			</action>
+
+	</package>
+	<!-- action -->
+	<package name="hoomxb" namespace="/" extends="custom-default">
+		 <interceptors>
+	        	<!-- 提供登陆拦截器 -->
+	        	<interceptor name="loginInterceptor" class="javacommon.base.interceptor.LoginInterceptor"/>
+	            <interceptor-stack name="loginStack">
+	                <interceptor-ref name="defaultStack"/>
+	                <interceptor-ref name="loginInterceptor"/>
+	            </interceptor-stack>
+	        </interceptors>
+        <default-interceptor-ref name="loginStack"/>
+        
+		<action name="*/*" class="com.hoomsun.schedule.web.actions.{1}Action" method="{2}">
+			<result name="none" type="dispatcher"></result>
+			<result name="*" type="direct">通过Action直接返回，这一行无需修改</result>
+		</action>
+
+	</package>
+	
+	   <!-- action -->
+    <package name="schedule" namespace="/schedule" extends="custom-default">
+
+        <!-- 控制任务接口 -->
+        <action name="taskMgmt" class="com.hoomsun.schedule.web.actions.TaskMgmtAction" >
+            <result name="jsonResult" type="json">
+                <param name="root">jsonResult</param>
+            </result>
+        </action>
+    </package>
+
+</struts>
