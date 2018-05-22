@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <element name="loanPaymentBillVo" class="com.hoomsun.vo.LoanPaymentBillVo">
+        <field name="serialNum" isnull="false" excelfield="序号"/>
+        <field name="type" isnull="false" excelfield="业务类型"/>
+        <field name="loanId" isnull="false" excelfield="红小宝散标ID"/>
+        <field name="serialNoImport" isnull="false" excelfield="黑卡借款流水号"/>
+        <field name="refId" isnull="true" excelfield="新项目用户ID"/>
+        <field name="borrowerId" isnull="true" excelfield="红小宝用户ID"/>
+        <field name="openTime" isnull="true" excelfield="筹款发起时间"/>
+        <field name="amount" isnull="true" excelfield="预计筹款金额"/>
+        <field name="passTime" isnull="true" excelfield="筹款成功时间"/>
+        <field name="amount" isnull="true" excelfield="实际筹款金额" />
+        <field name="months" isnull="true" excelfield="分期数"/>
+        <field name="interest" isnull="true" excelfield="年利率"/>
+        <field name="serialNo" isnull="true" excelfield="本期还款流水号"/>
+        <field name="dueDate" isnull="true" excelfield="本期应还时间"/>
+        <field name="repaidTime" isnull="true" excelfield="本期实际还款时间"/>
+        <field name="isOverDue" isnull="true" excelfield="是否逾期"/>
+        <field name="overDueDays" isnull="true" excelfield="逾期天数"/>
+        <field name="repaymentAmount" isnull="true" excelfield="本期还款总金额"/>
+        <field name="interestAmount" isnull="true" excelfield="本期本息金额"/>
+        <field name="mgmtFee" isnull="true" excelfield="月管理费"/>
+        <field name="singlePrincipalAmount" isnull="true" excelfield="本期单份本息金额"/>
+        <!--<field name="endTime" isnull="true" excelfield="还款期限"/>-->
+        <!--<field name="periodNumber" isnull="true" excelfield="期序"/>-->
+    </element>
+</root>

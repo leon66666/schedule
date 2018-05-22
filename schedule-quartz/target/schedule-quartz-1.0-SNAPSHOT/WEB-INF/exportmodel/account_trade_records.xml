@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <element name="accountTradeRecordList" class="com.hoomsun.model.AccountTradeRecord">
+        <field name="bankAcc" isnull="true" excelfield="账号"/>
+        <field name="accName" isnull="true" excelfield="账号名称"/>
+        <field name="accAttrName" isnull="true" excelfield="账户属性名称"/>
+        <field name="transDate" isnull="true" excelfield="交易日期"/>
+        <field name="transTime" isnull="true" excelfield="交易时间" />
+        <field name="businCode" isnull="true" excelfield="业务代码"/>
+        <field name="businName" isnull="true" excelfield="业务名称"/>
+        <field name="amt" isnull="true" excelfield="金额"/>
+        <field name="otherAcc" isnull="true" excelfield="对方账号"/>
+        <field name="otherAccName" isnull="true" excelfield="对方账号名称"/>
+        <field name="statusName" isnull="true" excelfield="交易状态"/>
+        <field name="errCode" isnull="true" excelfield="错误代码"/>
+        <field name="errMsg" isnull="true" excelfield="错误信息"/>
+        <field name="postBala" isnull="true" excelfield="交易后余额"/>
+        <field name="chgFlagName" isnull="true" excelfield="变动标志名称"/>
+    </element>
+</root>

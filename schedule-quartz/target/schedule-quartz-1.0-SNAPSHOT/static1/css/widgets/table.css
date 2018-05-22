@@ -1,0 +1,125 @@
+/* 
+	table.css
+*/
+
+.ui-table{
+	width: 100%;
+	background: #fff;
+	border-spacing: none;
+	border-collapse: collapse;
+	font-size: 14px;
+}
+.ui-table caption{
+	height: 58px;
+	line-height: 58px;
+	padding: 0 20px;
+	background: #4fc1e9;
+	border: none;
+	border-radius: 3px 3px 0 0;
+	box-shadow: 0 -3px 0 0 #3bafda inset;
+	color: #fff;
+	font-size: 16px;
+}
+.ui-table th,
+.ui-table td{
+	position: relative;
+	padding: 10px 10px 10px  20px;
+	text-align: center;
+}
+.ui-table th{
+	height: 37px;
+	background: #a4aeb9;
+	border-bottom: 2px solid #93999e;
+	color: #fff;
+}
+.ui-table th.text-left,
+.ui-table td.text-left{
+	text-align: left;
+}
+.ui-table th.text-right,
+.ui-table td.text-right{
+	text-align: right;
+}
+.ui-table td{
+	height: 57px;
+}
+.ui-table td font{
+	white-space: nowrap;
+}
+.ui-table tr:hover,
+.ui-table tr.dark:hover{
+	background: #cff3ff;
+}
+.ui-table tr.dark{
+	background: #f0f2f5;
+}
+.ui-table tr:last-child td{
+	box-shadow: 0 -3px 0 0 #e3e4e8 inset;
+}
+.ui-table tr:last-child td:first-child{
+	border-radius: 0 0 0 3px;
+}
+.ui-table tr:last-child td:last-child{
+	border-radius: 0 0 3px 0;
+}
+.ui-table a{
+	color: #5dc9e6;
+}
+.ui-table input[type="checkbox"]{
+	position: absolute;
+	top: 50%;
+	z-index: 9;
+	width: 18px;
+	height: 18px;
+	margin-top: -9px;
+	opacity: 0;
+	filter: alpha(opacity=0);
+	cursor: pointer;
+}
+.ui-table .icon-uncheckbox,
+.ui-table .icon-checkbox{
+	margin-right: 20px;
+}
+.ui-table span.table-title,
+.ui-table span.set-user-name{
+	width: 100px;
+	display: inline-block;
+	vertical-align: middle;
+}
+.ui-table .table-link-group i{
+	cursor: pointer;
+}
+
+.ui-table .ui-input{
+	height: 33px;
+	line-height: 33px;
+}
+
+
+/* 小表格 */
+.ui-table-min{
+	width: 684px;
+	margin: 64px auto 100px;
+}
+.ui-table-min caption{
+	text-align: center;
+}
+.ui-table-min .ui-input{
+	height: 46px;
+	line-height: 46px;
+}
+.ui-table-min td{
+	padding: 8px 10px 8px 20px;
+	text-align: left;
+}
+.ui-table-min td.tdLabel{
+	text-align: right;
+}
+.ui-table-min th.text-center,
+.ui-table-min td.text-center{
+	text-align: center;
+}
+
+.ui-table-min tr:last-child td:last-child{
+	border-radius: 0 0 3px 3px;
+}

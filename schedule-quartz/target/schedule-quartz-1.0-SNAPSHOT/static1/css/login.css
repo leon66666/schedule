@@ -1,0 +1,69 @@
+/* 
+	This css only for login page
+	css : pg-login 
+*/
+
+html{
+	background: #51c2e8;
+}
+
+.pg-login-container{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 600px;
+	height: 350px;
+	margin: -175px 0 0 -300px;
+}
+.pg-login-container h1{
+	color: #fff;
+	font-size: 32px;
+	text-align: center;
+}
+.pg-login-container h1 .login-logo{
+	width: 600px;
+	height: 163px;
+	background: url(../img/login-human.png) no-repeat scroll center top;
+}
+.pg-login-container h1 span{
+	display: block;
+}
+.login-form{
+	position: relative;
+}
+.login-form-input{
+	width: 510px;
+	padding: 10px 14px;
+	background: #e5f1f6;
+	border-radius: 3px;
+}
+.login-form-button{
+	position: absolute;
+	top: 50%;
+	right: 0;
+	width: 62px;
+	height: 52px;
+	margin-top: -26px;
+}
+.ui-input-login{
+	width: 208px;
+	height: 57px;
+	padding: 0 20px;
+	color: #767c8b;
+	font-size: 18px;
+}
+.ui-input-login-error{
+	border: 1px solid #ed5565;
+	color: #ed5565;
+}
+.ui-button-login{
+	width: 62px;
+	height: 52px;
+	background: #3eb0d9;
+	border: none;
+	border-radius: 0 3px 3px 0;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	cursor: pointer;
+}
