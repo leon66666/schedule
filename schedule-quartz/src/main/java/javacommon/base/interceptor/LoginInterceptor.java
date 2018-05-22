@@ -1,7 +1,5 @@
 package javacommon.base.interceptor;
 
-import com.hoomsun.model.Staff;
-import com.hoomsun.util.UtilTools;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.Interceptor;
 import org.apache.commons.logging.Log;
@@ -12,8 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登陆拦截器
- *
- * 
  */
 public class LoginInterceptor implements Interceptor {
     /**
@@ -24,10 +20,10 @@ public class LoginInterceptor implements Interceptor {
     private static final String VISTER_JSP = "/index.jsp";
     private static final String TASK_MGMT_URL = "/api/taskMgmt.action";
 
+    @Override
     public String intercept(ActionInvocation invocation) throws Exception {
 
         HttpServletRequest request = ServletActionContext.getRequest();
-        Staff user = (Staff) request.getSession().getAttribute("logingUser");
 
         // 任务管理操作,用户权限验证入到Action里面进行
         if (request.getRequestURI().startsWith(TASK_MGMT_URL)
@@ -38,13 +34,8 @@ public class LoginInterceptor implements Interceptor {
             return result;
         }
 
-        // 没有登陆用户跳回登陆页
-        if (UtilTools.isNullOrEmpty(user)) {
-            return VISTER_JSP;
-        } else {
-            String result = invocation.invoke(); // 登陆用户继续执行
-            return result;
-        }
+        String result = invocation.invoke(); // 登陆用户继续执行
+        return result;
     }
 
     @Override
@@ -58,5 +49,4 @@ public class LoginInterceptor implements Interceptor {
 
 
     }
-
 }

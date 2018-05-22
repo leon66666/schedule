@@ -1,9 +1,9 @@
 package com.hoomsun.common;
 
-import com.hoomsun.util.UtilTools;
 import org.springframework.aop.framework.AdvisedSupport;
 import org.springframework.aop.framework.AopProxy;
 import org.springframework.aop.support.AopUtils;
+import zhongqiu.javautils.UtilTools;
 
 import java.lang.reflect.Field;
 

@@ -1,18 +1,12 @@
-/*
- * 
- * 
- */
 package com.hoomsun.schedule.web.actions;
 
-import com.hoomsun.schedule.service.LoginService;
 import javacommon.base.BaseStruts2Action;
 import org.apache.struts2.ServletActionContext;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.*;
 
 /**
- * 
+ *
  */
 public class UploadAction extends BaseStruts2Action {
     protected static final String TEST_JSP = "/index1.jsp";
@@ -21,15 +15,17 @@ public class UploadAction extends BaseStruts2Action {
     protected static final String ERROR = "/jsp/upload_pre.jsp";
     protected static final String INPUT = "/jsp/upload_pre.jsp";
     private static final long serialVersionUID = 4305445079780144035L;
-    @Autowired
-    private LoginService loginService;
 
     private String username;
     private String password;
     private File file;
-    /** 上传文件名称 **/
+    /**
+     * 上传文件名称
+     **/
     private String fileFileName;
-    /** 上传文件类型 **/
+    /**
+     * 上传文件类型
+     **/
     private String fileContentType;
 
     @Override
@@ -39,7 +35,6 @@ public class UploadAction extends BaseStruts2Action {
         int start = fileFileName.lastIndexOf("//");
         fileFileName = fileFileName.substring(start + 1);
         start = fileFileName.lastIndexOf(".");
-        //        String houzui= fileFileName.substring(start);
         File fileTemp = new File(ServletActionContext.getServletContext().getRealPath("upload"), fileFileName);
 
         InputStream is = null;

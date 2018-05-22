@@ -4,7 +4,6 @@ import com.hoomsun.model.TaskLog;
 import com.hoomsun.model.TaskTimer;
 import com.hoomsun.schedule.service.TaskLogService;
 import com.hoomsun.schedule.service.TaskTimerService;
-import com.hoomsun.util.LoginUtil;
 import zhongqiu.javautils.UtilTools;
 import org.aspectj.lang.JoinPoint;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,7 @@ public class TaskTimerWriteLog {
                 // 封装任务sid
                 taskLog.setTaskId(taskTimer.getId());
                 // 封装操作ip
-                taskLog.setServerIp(LoginUtil.loginIp);
+                taskLog.setServerIp("127.0.0.1");
                 // 封装操作类型
                 taskLog.setOperateType(status);
                 // 封装描述

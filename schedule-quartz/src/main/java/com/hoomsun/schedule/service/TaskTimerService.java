@@ -22,9 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import zhongqiu.javautils.UtilTools;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.quartz.CronScheduleBuilder.dailyAtHourAndMinute;
 import static org.quartz.JobBuilder.newJob;
@@ -35,116 +33,127 @@ import static org.quartz.TriggerBuilder.newTrigger;
 @Transactional
 public class TaskTimerService extends BaseService<TaskTimer, Integer> {
 
-	@Autowired
-	private TaskTimerDAO taskTimerDAO;
-	@Autowired
-	private TaskTimerParamDAO timerParamDao;
-	@Autowired
+    @Autowired
+    private TaskTimerDAO taskTimerDAO;
+    @Autowired
+    private TaskTimerParamDAO timerParamDao;
+    @Autowired
     private TaskLogService taskLogService;
     @Autowired
-	private ScheduleInitService scheduleInitService;
-	private Scheduler scheduler;
+    private ScheduleInitService scheduleInitService;
+    private Scheduler scheduler;
 
-	public TaskTimerService() {
-	    try {
+    public TaskTimerService() {
+        try {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
         } catch (SchedulerException e) {
             e.printStackTrace();
         }
-	}
+    }
 
-	public Page<?> findPage(TaskTimerQuery query){
-	    return taskTimerDAO.findPage(query);
-	}
-	public List<TaskTimer> findAll(){
-			return taskTimerDAO.findAll();
-	}
-	/**
-	 * 根据任务对应的类名获取任务实例
-	 * @param className 任务对应类名
-	 */
-	@Transactional(readOnly=true)
-	public TaskTimer getTaskTimerByClassName(String className){
-	    return taskTimerDAO.getTaskTimerByClassName(className);
-	}
-	// 根据id数组批量删除任务
-	public void batDelete(String[] ids) throws Exception {
-	    for(String id:ids){
-	        if(!UtilTools.isNullOrEmpty(id)) {
-	            TaskTimer taskTimer = this.getById(Integer.valueOf(id));
-	            if(!UtilTools.isNullOrEmpty(taskTimer)) {
-	                TaskStatus taskStatus = taskTimer.getTaskStatus();
-	                if(!UtilTools.isNullOrEmpty(taskStatus) && taskStatus.equals(TaskStatus.RUNNING)) {
-	                    throw new RuntimeException("任务在运行中不能删除");
-	                } else {
-	                    taskTimerDAO.delete(taskTimer);
-	                }
-	            }
-	        }
-	    }
-	}
-	public String getTaskNameById(Integer id){
-	    TaskTimer  taskTimer=this.getById(id);
-	    log.debug(taskTimer.getTaskName());
-	    return !UtilTools.isNullOrEmpty(taskTimer)?taskTimer.getTaskName():"";
-	}
-	/**
-	 * 根据状态获取某一状态的任务
-	 * @param status 状态
-	 */
-	@Transactional(readOnly=true)
-	public List<TaskTimer> getTaskTimerByStatus(TaskStatus status){
-	    return taskTimerDAO.getTaskTimerByStatus(status);
-	}
+    public Page<?> findPage(TaskTimerQuery query) {
+        return taskTimerDAO.findPage(query);
+    }
 
-	/**
-	 * 获取所有任务
-	 * @return 所有任务的集合
-	 */
-	@Transactional(readOnly=true)
-	public List<TaskTimer> getAllTaskTimers() {
-	    return taskTimerDAO.getAllTaskTimers();
-	}
-	
-	public TaskTimer getByTaskClass(String taskName) {
-	    return taskTimerDAO.findByProperty("taskClass", taskName);
-	}
+    @Override
+    public List<TaskTimer> findAll() {
+        return taskTimerDAO.findAll();
+    }
+
+    /**
+     * 根据任务对应的类名获取任务实例
+     *
+     * @param className 任务对应类名
+     */
+    @Transactional(readOnly = true)
+    public TaskTimer getTaskTimerByClassName(String className) {
+        return taskTimerDAO.getTaskTimerByClassName(className);
+    }
+
+    // 根据id数组批量删除任务
+    public void batDelete(String[] ids) throws Exception {
+        for (String id : ids) {
+            if (!UtilTools.isNullOrEmpty(id)) {
+                TaskTimer taskTimer = this.getById(Integer.valueOf(id));
+                if (!UtilTools.isNullOrEmpty(taskTimer)) {
+                    TaskStatus taskStatus = taskTimer.getTaskStatus();
+                    if (!UtilTools.isNullOrEmpty(taskStatus) && taskStatus.equals(TaskStatus.RUNNING)) {
+                        throw new RuntimeException("任务在运行中不能删除");
+                    } else {
+                        taskTimerDAO.delete(taskTimer);
+                    }
+                }
+            }
+        }
+    }
+
+    public String getTaskNameById(Integer id) {
+        TaskTimer taskTimer = this.getById(id);
+        log.debug(taskTimer.getTaskName());
+        return !UtilTools.isNullOrEmpty(taskTimer) ? taskTimer.getTaskName() : "";
+    }
+
+    /**
+     * 根据状态获取某一状态的任务
+     *
+     * @param status 状态
+     */
+    @Transactional(readOnly = true)
+    public List<TaskTimer> getTaskTimerByStatus(TaskStatus status) {
+        return taskTimerDAO.getTaskTimerByStatus(status);
+    }
+
+    /**
+     * 获取所有任务
+     *
+     * @return 所有任务的集合
+     */
+    @Transactional(readOnly = true)
+    public List<TaskTimer> getAllTaskTimers() {
+        return taskTimerDAO.getAllTaskTimers();
+    }
+
+    public TaskTimer getByTaskClass(String taskName) {
+        return taskTimerDAO.findByProperty("taskClass", taskName);
+    }
 
     @Override
     protected EntityDao<?, ?> getEntityDao() {
         return taskTimerDAO;
     }
-    
+
     /**
      * 重置一个定时任务的参数
-     * @param id 任务ID
-     * @param paramKey 参数类型 timingDate/delayDate/intervalDate
+     *
+     * @param id          任务ID
+     * @param paramKey    参数类型 timingDate/delayDate/intervalDate
      * @param param_value 参数值
-     * @param staff 操作人
+     * @param staff       操作人
      */
     public void resetParam(Integer id, String paramKey, String param_value, String staff) {
-        if (id == null || StringUtils.isEmpty(paramKey) || StringUtils.isEmpty(param_value)){
+        if (id == null || StringUtils.isEmpty(paramKey) || StringUtils.isEmpty(param_value)) {
             throw new RuntimeException("参数不正确:部分参数为空");
         }
-        
+
         // 删掉某个任务的参数
         timerParamDao.deleteByTaskId(id);
         // 增加参数
         appendParam(id, paramKey, param_value, staff);
     }
-    
+
     /**
      * 增加一个定时任务的参数
-     * @param id 任务ID
-     * @param paramKey 参数类型 timingDate/delayDate/intervalDate
+     *
+     * @param id          任务ID
+     * @param paramKey    参数类型 timingDate/delayDate/intervalDate
      * @param param_value 参数值
-     * @param staff 操作人
+     * @param staff       操作人
      */
     public void appendParam(Integer id, String paramKey, String param_value, String staff) {
-        if (id == null || StringUtils.isEmpty(paramKey) || StringUtils.isEmpty(param_value)){
+        if (id == null || StringUtils.isEmpty(paramKey) || StringUtils.isEmpty(param_value)) {
             throw new RuntimeException("参数不正确:部分参数为空");
         }
-        
+
         // 增加参数
         TaskTimerParam param = new TaskTimerParam();
         param.setTaskId(id);
@@ -177,14 +186,6 @@ public class TaskTimerService extends BaseService<TaskTimer, Integer> {
                 }
                 throw new Exception("该任务正在运行");
             } else {
-                // 获取要运行的任务类
-                String flag = redisServiceImpl.getStr(Constants.RUNNING_KEYPREFIX_IN_REDIS, taskTimer.getTaskClass());
-                if (!UtilTools.isNullOrEmpty(flag) && "true".equals(flag)) {
-                    if (!UtilTools.isNullOrEmpty(Flash.current())) {
-                        Flash.current().error("任务:" + taskTimer.getTaskClass() + "上次运行任务尚未结束，请稍后再试");
-                    }
-                    return;
-                }
                 Object obj = null;
                 try {
                     obj = CoreServicesFactory.getBean(taskTimer.getTaskClass());
@@ -200,32 +201,7 @@ public class TaskTimerService extends BaseService<TaskTimer, Integer> {
                     }
                     throw new Exception("该任务不合法");
                 } else {
-
-                	//检查任务应该在哪台schedule执行
-                	String currentHost = ResourceBundleUtil.getStringValue(Constants.TASK_IS_MASTER_KEY, Constants.TASK_CONFIG_FILE_NAME, null);
-                	String slaveJobs = ResourceBundleUtil.getStringValue(Constants.SLAVE_JOBS, Constants.TASK_CONFIG_FILE_NAME, null);
-
-                	Map<String,String> jobsMap = new HashMap<String,String>();
-                	if(StringUtils.isNotBlank(slaveJobs)){
-                		String[] jobs = slaveJobs.split(",");
-                		for(int i=0;i<jobs.length;i++){
-                			jobsMap.put(jobs[i], "");
-                		}
-                	}
-                	//currentHost为MASTER 且配置为slave执行的任务将不启动
-                	if(jobsMap.get(taskTimer.getTaskClass()) != null && Constants.SCHEDULE_JOB_MASTER.toUpperCase().equals(currentHost.toUpperCase())){
-
-    					log.info("--------> 任务:" + taskTimer.getTaskClass() + "不能在"+currentHost+"运行");
-        				return ;
-            		}
-                	//currentHost为SLAVE 且配置为slave执行的任务将启动
-                	if(jobsMap.get(taskTimer.getTaskClass()) == null && Constants.SCHEDULE_JOB_SLAVE.toUpperCase().equals(currentHost.toUpperCase())){
-
-            			log.info("--------> 任务:" + taskTimer.getTaskClass() + "不能在"+currentHost+"运行");
-        				return ;
-            		}
-
-                    BaseJob job = (BaseJob)obj;
+                    BaseJob job = (BaseJob) obj;
                     job.reSet();
                     if (!(taskTimer.getIsTiming() == 1)) { // 非定时任务
                         Long delayDate = null;
@@ -266,10 +242,7 @@ public class TaskTimerService extends BaseService<TaskTimer, Integer> {
                     }
                     // 设置相关信息
                     taskTimer.setTaskStatus(TaskStatus.RUNNING);
-                    String isMaster = ResourceBundleUtil.getStringValue(Constants.TASK_IS_MASTER_KEY, Constants.TASK_CONFIG_FILE_NAME, null);
-                    isMaster = UtilTools.isNullOrEmpty(isMaster) ? "master" : isMaster;
-                    taskTimer.setVersion(isMaster);
-                    redisServiceImpl.setStr(Constants.RUNNING_KEYPREFIX_IN_REDIS, taskTimer.getTaskClass(), "true", 60 * 60 * 24 * 7);
+                    taskTimer.setVersion("master");
                     if (!UtilTools.isNullOrEmpty(Flash.current())) {
                         Flash.current().clear();
                     }
@@ -297,7 +270,7 @@ public class TaskTimerService extends BaseService<TaskTimer, Integer> {
                 if (UtilTools.isNullOrEmpty(obj)) {
                     throw new Exception("该任务不合法");
                 } else {
-                    BaseJob job = (BaseJob)obj;
+                    BaseJob job = (BaseJob) obj;
                     if (!(taskTimer.getIsTiming() == 1)) { // 非定时任务
                         Long intervalDate = job.getIntervalDate(Constants.AUTO_TASK_INTERVAL_DATE_KEY);
                         TriggerKey triggerKey = new TriggerKey(intervalDate + "_" + taskTimer.getTaskClass());
@@ -315,14 +288,12 @@ public class TaskTimerService extends BaseService<TaskTimer, Integer> {
                         }
                     }
                     taskTimer.setTaskStatus(TaskStatus.STOPPING);
-                    String isMaster = ResourceBundleUtil.getStringValue(Constants.TASK_IS_MASTER_KEY, Constants.TASK_CONFIG_FILE_NAME, null);
                     // 如果任务启动不是当前机器，不能重启
-                    isMaster = UtilTools.isNullOrEmpty(isMaster) ? "master" : isMaster;
+                    String isMaster = "master";
                     if (!isMaster.equalsIgnoreCase(taskTimer.getVersion())) {
                         return;
                     }
                     taskTimer.setVersion(isMaster);
-                    redisServiceImpl.del(Constants.RUNNING_KEYPREFIX_IN_REDIS, taskTimer.getTaskClass());
                 }
             }
         } catch (Exception e) {
