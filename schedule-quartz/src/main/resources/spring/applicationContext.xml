@@ -8,7 +8,6 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <import resource="classpath:spring/applicationContext-config.xml"/>
     <import resource="applicationContext-persistence.xml"/>
 
     <context:component-scan base-package="com.hoomsun.schedule.service"/>
