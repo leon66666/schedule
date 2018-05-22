@@ -10,11 +10,6 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-    <!-- 主数据库 -->
-    <!--<jee:jndi-lookup id="dataSourceMaster" jndi-name="jdbc/write" />-->
-    <!-- 从数据库 -->
-    <!--<jee:jndi-lookup id="dataSourceSlave" jndi-name="jdbc/read" />-->
-
     <bean id="dataSource" class="com.hoomsun.dao.DataSourceRouter">
         <property name="targetDataSources">
             <map key-type="com.hoomsun.util.AvailableDataSources">
