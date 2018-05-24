@@ -1,6 +1,5 @@
 package com.hoomsun.schedule.dao;
 
-
 import com.hoomsun.model.TaskLog;
 import com.hoomsun.page.Page;
 import com.hoomsun.vo.TaskLogQuery;
@@ -9,16 +8,6 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-/**
- * A data access object (DAO) providing persistence and search support for
- * TaskTimer entities. Transaction control of the save(), update() and delete()
- * operations can directly support Spring container-managed transactions or they
- * can be augmented to handle user-managed Spring transactions. Each of these
- * methods provides additional information for how to configure it for the
- * desired type of transaction control.
- * 
- * 
- */
 @Repository
 public class TaskLogDAO extends BaseHibernateDao<TaskLog, Integer> {
 	private TaskLog taskLog; 
