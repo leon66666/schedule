@@ -1,5 +1,5 @@
 <%@ tag pageEncoding="UTF-8"%>
-<%@ attribute name="page" required="true" type="com.hoomsun.page.Page" description="Page.java" %>
+<%@ attribute name="page" required="true" type="wangzhongqiu.page.Page" description="Page.java" %>
 <%@ attribute name="pageSizeSelectList" type="java.lang.Number[]" required="false"  %>
 <%@ attribute name="isShowPageSizeList" type="java.lang.Boolean" required="false"  %>
 <%@ taglib uri="/struts-tags" prefix="s"%>

@@ -1,7 +1,7 @@
 package javacommon.base;
 
-import com.hoomsun.page.Page;
-import com.hoomsun.page.PageRequest;
+import wangzhongqiu.page.Page;
+import wangzhongqiu.page.PageRequest;
 import javacommon.xsqlbuilder.SafeSqlProcesserFactory;
 import javacommon.xsqlbuilder.XsqlBuilder;
 import javacommon.xsqlbuilder.XsqlBuilder.XsqlFilterResult;
@@ -24,12 +24,11 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 import org.springframework.util.Assert;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.util.StringUtils;
+import wangzhongqiu.util.SqlRemoveUtils;
 
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.*;
-
-import static com.hoomsun.util.SqlRemoveUtils.*;
 
 /**
  * 
@@ -79,7 +78,7 @@ public abstract class BaseHibernateDao<E, PK extends Serializable> extends Hiber
 
     @SuppressWarnings("rawtypes")
     public Page pageQuery(final String sql, final PageRequest pageRequest) {
-        final String countQuery = "select count(*) " + removeSelect(removeFetchKeyword((sql)));
+        final String countQuery = "select count(*) " + SqlRemoveUtils.removeSelect(SqlRemoveUtils.removeFetchKeyword((sql)));
         return pageQuery(sql, countQuery, pageRequest);
     }
 
@@ -116,7 +115,7 @@ public abstract class BaseHibernateDao<E, PK extends Serializable> extends Hiber
                 public Object doInHibernate(Session session) throws HibernateException, SQLException {
 
                     Query query = setQueryParameters(session.createQuery(queryXsqlResult.getXsql()), pageRequest);
-                    Query countQuery = setQueryParameters(session.createQuery(removeOrders(countQueryXsqlResult.getXsql())), pageRequest);
+                    Query countQuery = setQueryParameters(session.createQuery(SqlRemoveUtils.removeOrders(countQueryXsqlResult.getXsql())), pageRequest);
 
                     return executeQueryForPage(pageRequest, query, countQuery);
                 }

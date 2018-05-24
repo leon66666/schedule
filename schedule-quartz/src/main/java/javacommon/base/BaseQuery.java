@@ -1,6 +1,6 @@
 package javacommon.base;
 
-import com.hoomsun.page.PageRequest;
+import wangzhongqiu.page.PageRequest;
 
 @SuppressWarnings("rawtypes")
 public class BaseQuery extends PageRequest implements java.io.Serializable {

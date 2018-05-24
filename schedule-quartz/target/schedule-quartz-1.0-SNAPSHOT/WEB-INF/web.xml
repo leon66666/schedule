@@ -46,7 +46,7 @@
 
     <!-- 系统启动时自动加载之前运行的任务 -->
     <listener>
-        <listener-class>com.hoomsun.schedule.listener.RedisIoForAutoTaskListener</listener-class>
+        <listener-class>wangzhongqiu.schedule.listener.RedisIoForAutoTaskListener</listener-class>
     </listener>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

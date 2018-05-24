@@ -1,9 +1,9 @@
 package javacommon.base;
 
-import com.hoomsun.page.Page;
-import com.hoomsun.page.PageRequest;
-import com.hoomsun.page.util.ConvertRegisterHelper;
-import com.hoomsun.page.util.PageRequestFactory;
+import wangzhongqiu.page.Page;
+import wangzhongqiu.page.PageRequest;
+import wangzhongqiu.page.util.ConvertRegisterHelper;
+import wangzhongqiu.page.util.PageRequestFactory;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.RequestAware;

@@ -1,4 +1,4 @@
-<%@page import="com.hoomsun.model.TaskTimerParam"%>
+<%@page import="wangzhongqiu.model.TaskTimerParam"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="/struts-tags" prefix="s"%>
 	<input type="hidden" name="taskId" value="${taskId }">

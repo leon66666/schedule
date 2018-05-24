@@ -161,7 +161,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>com.hoomsun.model</value>
+                <value>wangzhongqiu.model</value>
             </list>
         </property>
         <property name="hibernateProperties">
