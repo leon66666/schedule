@@ -1,206 +1,188 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
-	  xmlns:aop="http://www.springframework.org/schema/aop"
-	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:context="http://www.springframework.org/schema/context"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:jee="http://www.springframework.org/schema/jee" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
        default-autowire="byName" default-lazy-init="true">
 
-	<!-- 主数据库 -->
-	<!--<jee:jndi-lookup id="dataSourceMaster" jndi-name="jdbc/write" />-->
-	<!-- 从数据库 -->
-	<!--<jee:jndi-lookup id="dataSourceSlave" jndi-name="jdbc/read" />-->
+    <bean id="dataSource" class="wangzhongqiu.spring.mybatis.datasource.DataSourceRouter">
+        <property name="targetDataSources">
+            <map key-type="wangzhongqiu.spring.mybatis.datasource.AvailableDataSources">
+                <entry key="READ" value-ref="dataSourceSlave"/>
+                <entry key="WRITE" value-ref="dataSourceMaster"/>
+            </map>
+        </property>
+        <property name="defaultTargetDataSource" ref="dataSourceMaster"></property>
+    </bean>
 
-	 <bean id="dataSource" class="com.hoomsun.dao.DataSourceRouter">
-	    <property name="targetDataSources">
-	      <map key-type="com.hoomsun.util.AvailableDataSources">
-	        <entry key="READ" value-ref="dataSourceSlave" />
-	        <entry key="WRITE" value-ref="dataSourceMaster" />
-	      </map>
-	    </property>
-	    <property name="defaultTargetDataSource" ref="dataSourceMaster"></property>
-	 </bean>
+    <bean id="dataSourceMaster" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://mysql.hoomxb.com:3306/spring?useOldAliasMetadataBehavior=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</value>
+        </property>
+        <property name="username">
+            <value>root</value>
+        </property>
+        <property name="password">
+            <value>root</value>
+        </property>
+        <!-- 连接池最大使用连接数 -->
+        <property name="maxActive">
+            <value>50</value>
+        </property>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize">
+            <value>0</value>
+        </property>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait">
+            <value>60000</value>
+        </property>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle">
+            <value>10</value>
+        </property>
+        <!-- 自动清除无用连接 -->
+        <property name="removeAbandoned">
+            <value>true</value>
+        </property>
+        <!-- 超时时间；单位为秒。180秒=3分钟 -->
+        <property name="removeAbandonedTimeout">
+            <value>180</value>
+        </property>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true"/>
+        <!-- 连接属性 -->
+        <property name="connectionProperties">
+            <value>clientEncoding=UTF-8</value>
+        </property>
+        <property name="filters" value="stat"/>
+    </bean>
 
-	<bean id="dataSourceMaster" class="com.alibaba.druid.pool.DruidDataSource"
-		  init-method="init" destroy-method="close">
-		<property name="driverClassName">
-			<value>com.mysql.jdbc.Driver</value>
-		</property>
-		<property name="url">
-			<value>jdbc:mysql://mysql.hoomxb.com:3306/spring?useOldAliasMetadataBehavior=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</value>
-		</property>
-		<property name="username">
-			<value>root</value>
-		</property>
-		<property name="password">
-			<value>root</value>
-		</property>
-		<!-- 连接池最大使用连接数 -->
-		<property name="maxActive">
-			<value>50</value>
-		</property>
-		<!-- 初始化连接大小 -->
-		<property name="initialSize">
-			<value>0</value>
-		</property>
-		<!-- 获取连接最大等待时间 -->
-		<property name="maxWait">
-			<value>60000</value>
-		</property>
-		<!-- 连接池最小空闲 -->
-		<property name="minIdle">
-			<value>10</value>
-		</property>
-		<!-- 自动清除无用连接 -->
-		<property name="removeAbandoned">
-			<value>true</value>
-		</property>
-		<!-- 超时时间；单位为秒。180秒=3分钟 -->
-		<property name="removeAbandonedTimeout">
-			<value>180</value>
-		</property>
-		<!-- 关闭abanded连接时输出错误日志 -->
-		<property name="logAbandoned" value="true" />
-		<!-- 连接属性 -->
-		<property name="connectionProperties">
-			<value>clientEncoding=UTF-8</value>
-		</property>
-		<property name="filters" value="stat" />
-	</bean>
-
-	<bean id="dataSourceSlave" class="com.alibaba.druid.pool.DruidDataSource"
-		  init-method="init" destroy-method="close">
-		<property name="driverClassName">
-			<value>com.mysql.jdbc.Driver</value>
-		</property>
-		<property name="url">
-			<value>jdbc:mysql://mysql.hoomxb.com:3306/spring?useOldAliasMetadataBehavior=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</value>
-		</property>
-		<property name="username">
-			<value>root</value>
-		</property>
-		<property name="password">
-			<value>root</value>
-		</property>
-		<!-- 连接池最大使用连接数 -->
-		<property name="maxActive">
-			<value>50</value>
-		</property>
-		<!-- 初始化连接大小 -->
-		<property name="initialSize">
-			<value>0</value>
-		</property>
-		<!-- 获取连接最大等待时间 -->
-		<property name="maxWait">
-			<value>60000</value>
-		</property>
-		<!-- 连接池最小空闲 -->
-		<property name="minIdle">
-			<value>10</value>
-		</property>
-		<!-- 超过时间限制是否回收 -->
-		<property name="removeAbandoned">
-			<value>true</value>
-		</property>
-		<!-- 超时时间；单位为秒。180秒=3分钟 -->
-		<property name="removeAbandonedTimeout">
-			<value>180</value>
-		</property>
-		<!-- 关闭abanded连接时输出错误日志 -->
-		<property name="logAbandoned" value="true" />
-		<!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
-		<property name="filters" value="stat,wall,log4j,stat" />
-		<!--
+    <bean id="dataSourceSlave" class="com.alibaba.druid.pool.DruidDataSource"
+          init-method="init" destroy-method="close">
+        <property name="driverClassName">
+            <value>com.mysql.jdbc.Driver</value>
+        </property>
+        <property name="url">
+            <value>jdbc:mysql://mysql.hoomxb.com:3306/spring?useOldAliasMetadataBehavior=true&amp;useUnicode=true&amp;characterEncoding=UTF-8</value>
+        </property>
+        <property name="username">
+            <value>root</value>
+        </property>
+        <property name="password">
+            <value>root</value>
+        </property>
+        <!-- 连接池最大使用连接数 -->
+        <property name="maxActive">
+            <value>50</value>
+        </property>
+        <!-- 初始化连接大小 -->
+        <property name="initialSize">
+            <value>0</value>
+        </property>
+        <!-- 获取连接最大等待时间 -->
+        <property name="maxWait">
+            <value>60000</value>
+        </property>
+        <!-- 连接池最小空闲 -->
+        <property name="minIdle">
+            <value>10</value>
+        </property>
+        <!-- 超过时间限制是否回收 -->
+        <property name="removeAbandoned">
+            <value>true</value>
+        </property>
+        <!-- 超时时间；单位为秒。180秒=3分钟 -->
+        <property name="removeAbandonedTimeout">
+            <value>180</value>
+        </property>
+        <!-- 关闭abanded连接时输出错误日志 -->
+        <property name="logAbandoned" value="true"/>
+        <!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->
+        <property name="filters" value="stat,wall,log4j,stat"/>
+        <!--
         如果配置了proxyFilters，此配置可以不配置
         druid.stat.mergeSql=true 合并执行的相同sql，避免因为参数不同而统计多条sql语句
         druid.stat.slowSqlMillis=10000 用来配置SQL慢的标准，执行时间超过slowSqlMillis的就是慢
-		-->
-		<property name="connectionProperties">
-			<value>clientEncoding=UTF-8;druid.stat.mergeSql=true;druid.stat.slowSqlMillis=10000</value>
-		</property>
-		<!-- 监控统计拦截的filters -->
-		<!-- 并在filters属性中配置了log4j -->
-		<property name="proxyFilters">
-			<list>
-				<ref bean="stat-filter" />
-				<ref bean="log-filter" />
-			</list>
-		</property>
-	</bean>
+        -->
+        <property name="connectionProperties">
+            <value>clientEncoding=UTF-8;druid.stat.mergeSql=true;druid.stat.slowSqlMillis=10000</value>
+        </property>
+        <!-- 监控统计拦截的filters -->
+        <!-- 并在filters属性中配置了log4j -->
+        <property name="proxyFilters">
+            <list>
+                <ref bean="stat-filter"/>
+                <ref bean="log-filter"/>
+            </list>
+        </property>
+    </bean>
 
-	<!-- 慢SQL记录-->
-	<bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
-		<property name="mergeSql" value="true" />
-		<property name="slowSqlMillis" value="1" />
-		<property name="logSlowSql" value="true" />
-	</bean>
+    <!-- 慢SQL记录-->
+    <bean id="stat-filter" class="com.alibaba.druid.filter.stat.StatFilter">
+        <property name="mergeSql" value="true"/>
+        <property name="slowSqlMillis" value="1"/>
+        <property name="logSlowSql" value="true"/>
+    </bean>
 
-	<bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
-		<!-- <property name="resultSetLogEnabled" value="false" /> -->
-		<!-- <property name="statementExecutableSqlLogEnable" value="true" /> -->
-	</bean>
+    <bean id="log-filter" class="com.alibaba.druid.filter.logging.Log4jFilter">
+        <!-- <property name="resultSetLogEnabled" value="false" /> -->
+        <!-- <property name="statementExecutableSqlLogEnable" value="true" /> -->
+    </bean>
 
-	<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
-	</bean>
-	<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
-		<property name="patterns">
-			<list>
-				<value>com.hoomsun.service.*</value>
-				<value>com.hoomsun.mgmt.service.*</value>
-				<value>com.hoomsun.mgmt.dao.*</value>
-				<value>com.hoomsun.dao.*</value>
-				<value>com.hoomsun.jdbc.dao.*</value>
-			</list>
-		</property>
-	</bean>
-	<aop:config>
-		<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />
-	</aop:config>
-
-	<!--Hibernate -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
-		<property name="packagesToScan">
-			<list>
-				<value>com.hoomsun.model</value>
-			</list>
-		</property>
-		<property name="hibernateProperties">
-			<props>
-				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
-				<prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
-				<prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
-				<prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
-				<prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
-				<prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
-				</props>
-		</property>
-	</bean>
-	<!--将日志类注入到bean中。-->
-	<!-- <bean id="taskTimerWriteLog" class="com.hoomsun.common.TaskTimerWriteLog"></bean>
+    <bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor">
+    </bean>
+    <bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">
+        <property name="patterns">
+            <list>
+                <value>com.hoomsun.service.*</value>
+                <value>com.hoomsun.mgmt.service.*</value>
+                <value>com.hoomsun.mgmt.dao.*</value>
+                <value>com.hoomsun.dao.*</value>
+                <value>com.hoomsun.jdbc.dao.*</value>
+            </list>
+        </property>
+    </bean>
     <aop:config>
-    	调用日志类
-    	<aop:aspect ref="taskTimerWriteLog">
-    		配置在job包下所有的类在调用run之前都会被拦截
-    		<aop:pointcut id="log" expression="execution(* com.hoomsun.schedule.service.job.*.run(..))"/>
-    		在job包下面所有类的run方法被调用之前都调用TaskTimerWriteLog中的before方法
-    		<aop:before pointcut-ref="log" method="before"/>
-    		在job包下面所有类的run方法被调用之前都调用TaskTimerWriteLog中的after方法
-    		<aop:after pointcut-ref="log" method="after"/>
-    	</aop:aspect>
-    </aop:config> -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
+        <aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut"/>
+    </aop:config>
 
-	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="dataSourceSlave" />
-	</bean>
+    <!--Hibernate -->
+    <bean id="sessionFactory"
+          class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan">
+            <list>
+                <value>com.hoomsun.model</value>
+            </list>
+        </property>
+        <property name="hibernateProperties">
+            <props>
+                <prop key="hibernate.dialect">${hibernate.dialect}</prop>
+                <prop key="hibernate.cache.use_second_level_cache">${hibernate.cache.use_second_level_cache}</prop>
+                <prop key="hibernate.show_sql">${hibernate.show_sql}</prop>
+                <prop key="hibernate.format_sql">${hibernate.format_sql}</prop>
+                <prop key="hibernate.use_sql_comments">${hibernate.use_sql_comments}</prop>
+                <prop key="hibernate.cache.use_query_cache">${hibernate.cache.use_query_cache}</prop>
+                <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2ddl.auto}</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="transactionManager"
+          class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSourceSlave"/>
+    </bean>
 </beans>
